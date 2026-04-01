@@ -1,0 +1,14 @@
+{
+  "name": "@kkarm-lmc/shared",
+  "version": "1.0.0",
+  "description": "LMC Platform shared styles — single source of truth for all 3 apps",
+  "main": "index.js",
+  "files": [
+    "styles/globals.css",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KkarmLMC/lmc-shared.git"
+  }
+}
