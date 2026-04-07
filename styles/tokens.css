@@ -1,0 +1,734 @@
+/* =============================================================================
+   LMC PLATFORM — GLOBAL CSS MIGRATION BUILD v2
+   Field Ops · Mission Control · Warehouse IQ
+   Flat UI · Token-driven · Hybrid Migration Layer
+   =============================================================================
+
+   PURPOSE
+   - Introduces a clean ACSS-inspired token architecture
+   - Preserves compatibility through legacy token aliases
+   - Enforces a 100% flat design system (no shadows, no elevation)
+   - Keeps existing BEM class structure intact where practical
+
+   MIGRATION STRATEGY
+   Phase 1: Ship this file with alias layer enabled
+   Phase 2: Refactor components to semantic/component tokens
+   Phase 3: Remove deprecated alias layer and legacy class aliases
+
+   IMPORTANT
+   - No box-shadow anywhere in the system
+   - No structural inline styles
+   - No raw hex usage in components
+   - No new usage of deprecated legacy tokens
+
+   ============================================================================= */
+
+
+/* =============================================================================
+   1. FONTS
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+
+/* =============================================================================
+   2. ROOT TOKENS
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------
+     2.1 FOUNDATION TOKENS — RAW PALETTE
+     Never use these directly in component rules unless creating semantic tokens.
+     --------------------------------------------------------------------------- */
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-navy-50:  #cdd3de;
+  --color-navy-100: #9ba7be;
+  --color-navy-200: #687c9d;
+  --color-navy-300: #36507d;
+  --color-navy-400: #04245c;
+  --color-navy-500: #031d4a;
+  --color-navy-600: #021637;
+  --color-navy-700: #020e25;
+  --color-navy-800: #010712;
+
+  --color-red-50:  #fdd6d9;
+  --color-red-100: #fbadb2;
+  --color-red-200: #f9858c;
+  --color-red-300: #f75c65;
+  --color-red-400: #f5333f;
+  --color-red-500: #c42932;
+  --color-red-600: #931f26;
+  --color-red-700: #621419;
+  --color-red-800: #310a0d;
+
+  --color-blue-50:  #ccdaf1;
+  --color-blue-100: #99b5e3;
+  --color-blue-200: #6691d6;
+  --color-blue-300: #336cc8;
+  --color-blue-400: #0047ba;
+  --color-blue-500: #003995;
+  --color-blue-600: #002b70;
+  --color-blue-700: #001c4a;
+  --color-blue-800: #000e25;
+
+  --color-green-50:  #cff1e6;
+  --color-green-100: #9fe3cd;
+  --color-green-200: #70d5b3;
+  --color-green-300: #40c79a;
+  --color-green-400: #10b981;
+  --color-green-500: #0d9467;
+  --color-green-600: #0a6f4d;
+  --color-green-700: #064a34;
+  --color-green-800: #03251a;
+
+  --color-amber-50:  #fdecce;
+  --color-amber-100: #fbd89d;
+  --color-amber-200: #f9c56d;
+  --color-amber-300: #f7b13c;
+  --color-amber-400: #f59e0b;
+  --color-amber-500: #c47e09;
+  --color-amber-600: #935f07;
+  --color-amber-700: #623f04;
+  --color-amber-800: #312002;
+
+  --color-orange-50:  #fee3d0;
+  --color-orange-100: #fdc7a2;
+  --color-orange-200: #fbab73;
+  --color-orange-300: #fa8f45;
+  --color-orange-400: #f97316;
+  --color-orange-500: #c75c12;
+  --color-orange-600: #95450d;
+  --color-orange-700: #642e09;
+  --color-orange-800: #321704;
+
+  --color-purple-50:  #e5d8fb;
+  --color-purple-100: #cbb0f8;
+  --color-purple-200: #b089f4;
+  --color-purple-300: #9661f1;
+  --color-purple-400: #7c3aed;
+  --color-purple-500: #632ebe;
+  --color-purple-600: #4a238e;
+  --color-purple-700: #32175f;
+  --color-purple-800: #190c2f;
+
+  --color-neutral-50:  #f8f9fa;
+  --color-neutral-100: #f4f5f7;
+  --color-neutral-150: #eef0f2;
+  --color-neutral-200: #edeeee;
+  --color-neutral-300: #dcdcdd;
+  --color-neutral-400: #cacbcb;
+  --color-neutral-500: #b9b9ba;
+  --color-neutral-600: #a7a8a9;
+  --color-neutral-700: #868687;
+  --color-neutral-800: #646565;
+  --color-neutral-900: #434344;
+  --color-neutral-950: #212222;
+
+  --color-teal-400: #0e7490;
+  --color-teal-50:  #d4eff5;
+
+  /* ---------------------------------------------------------------------------
+     2.2 TYPOGRAPHY FOUNDATION
+     --------------------------------------------------------------------------- */
+
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --text-2xs: clamp(0.625rem, 0.610rem + 0.020vw, 0.6875rem);
+  --text-xs:  clamp(0.75rem,  0.720rem + 0.080vw, 0.8125rem);
+  --text-sm:  clamp(0.875rem, 0.840rem + 0.120vw, 0.9375rem);
+  --text-base: clamp(1rem,    0.960rem + 0.180vw, 1.0625rem);
+  --text-md:  clamp(1.125rem, 1.060rem + 0.240vw, 1.25rem);
+  --text-lg:  clamp(1.25rem,  1.140rem + 0.400vw, 1.5rem);
+  --text-xl:  clamp(1.5rem,   1.300rem + 0.700vw, 1.875rem);
+  --text-2xl: clamp(1.875rem, 1.600rem + 1.000vw, 2.375rem);
+  --text-3xl: clamp(2.25rem,  1.900rem + 1.400vw, 3rem);
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.2;
+  --lh-base: 1.5;
+  --lh-loose: 1.65;
+
+  --ls-tight: -0.02em;
+  --ls-base: 0;
+  --ls-loose: 0.04em;
+  --ls-caps: 0.08em;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  /* ---------------------------------------------------------------------------
+     2.3 SPACING FOUNDATION
+     Single scale. Use for margin, padding, and gap.
+     --------------------------------------------------------------------------- */
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.375rem;
+  --space-s:   0.5rem;
+  --space-m:   0.75rem;
+  --space-l:   1rem;
+  --space-xl:  1.25rem;
+  --space-2xl: 1.5rem;
+  --space-3xl: 2rem;
+  --space-4xl: 2.5rem;
+
+  --space-fluid-s:  clamp(0.5rem,  0.42rem + 0.30vw, 0.75rem);
+  --space-fluid-m:  clamp(0.75rem, 0.62rem + 0.45vw, 1rem);
+  --space-fluid-l:  clamp(1rem,    0.82rem + 0.60vw, 1.25rem);
+  --space-fluid-xl: clamp(1.25rem, 1rem + 0.90vw, 1.5rem);
+
+  /* ---------------------------------------------------------------------------
+     2.4 RADIUS / BORDER / MOTION / LAYER TOKENS
+     Flat system: radii allowed, shadows prohibited.
+     --------------------------------------------------------------------------- */
+
+  --radius-xs: 0.25rem;
+  --radius-s:  0.375rem;
+  --radius-m:  0.5rem;
+  --radius-l:  0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-round: 999rem;
+
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 300ms;
+  --ease-standard: ease;
+  --ease-emphasized: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Line Height ─── */
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.6;
+
+  /* ─── Letter Spacing ─── */
+  --tracking-tight: 0.03em;
+  --tracking-normal: 0.04em;
+  --tracking-wide: 0.06em;
+
+  /* ─── Z-Index: Sheet ─── */
+  --z-sheet-overlay: 299;
+  --z-sheet: 300;
+
+  /* ─── Opacity ─── */
+  --opacity-muted: 0.5;
+  --opacity-soft: 0.7;
+
+  /* ─── Overlay Backgrounds ─── */
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --overlay-bg-subtle: rgba(0, 0, 0, 0.06);
+  --overlay-white: rgba(255, 255, 255, 0.25);
+  --overlay-white-soft: rgba(255, 255, 255, 0.12);
+
+  /* ─── Icon Sizing ─── */
+  --icon-size-xs: 1.25rem;
+  --icon-size-sm: 1.75rem;
+  --icon-size-md: 2.25rem;
+  --icon-size-lg: 2.5rem;
+
+  /* ─── Functional ─── */
+  --search-input-offset: 2.25rem;
+  --touch-target: 2.75rem;
+  --touch-target-lg: 3.25rem;
+
+
+  --z-base: 0;
+  --z-raised: 1;
+  --z-sticky: 10;
+  --z-dropdown: 40;
+  --z-overlay: 50;
+  --z-modal: 100;
+  --z-toast: 200;
+  --z-max: 9999;
+
+  /* ---------------------------------------------------------------------------
+     2.5 LAYOUT TOKENS
+     --------------------------------------------------------------------------- */
+
+  --sidebar-w: 13.75rem;
+  --sidebar-w-collapsed: 3.75rem;
+  --header-h: 3.25rem;
+  --tab-h: 4rem;
+  --bottom-nav-h: 4rem;
+  --content-pad: var(--space-fluid-xl);
+
+  --bp-sm: 30rem;
+  --bp-md: 40rem;
+  --bp-lg: 56.25rem;
+
+  --grid-cols-1: 1fr;
+  --grid-cols-2: repeat(2, 1fr);
+  --grid-cols-3: repeat(3, 1fr);
+  --grid-cols-4: repeat(4, 1fr);
+
+  --grid-fit-xs: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
+  --grid-fit-sm: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  --grid-fit-md: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  --grid-fit-lg: repeat(auto-fit, minmax(min(100%, 17.5rem), 1fr));
+
+  /* ---------------------------------------------------------------------------
+     2.6 SEMANTIC TOKENS
+     Use these in all new component code.
+     --------------------------------------------------------------------------- */
+
+  --surface-page: var(--color-neutral-150);
+  --surface-base: var(--color-white);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-raised: var(--color-neutral-100);
+  --surface-inverse: var(--color-navy-400);
+  --surface-hover: var(--color-neutral-100);
+
+  --text-primary: var(--color-black);
+  --text-secondary: var(--color-neutral-900);
+  --text-muted: var(--color-neutral-600);
+  --text-disabled: var(--color-neutral-400);
+  --text-inverse: var(--color-white);
+
+  --border-subtle: var(--color-neutral-300);
+  --border-strong: var(--color-neutral-400);
+  --border-inverse: rgba(255, 255, 255, 0.18);
+
+  --brand-primary: var(--color-navy-400);
+  --brand-primary-hover: var(--color-navy-500);
+  --brand-primary-active: var(--color-navy-600);
+
+  --brand-accent: var(--color-red-400);
+  --brand-accent-hover: var(--color-red-500);
+  --brand-accent-active: var(--color-red-600);
+
+  --state-success: var(--color-green-400);
+  --state-success-soft: var(--color-green-50);
+  --state-success-text: var(--color-green-600);
+
+  --state-warning: var(--color-amber-400);
+  --state-warning-soft: var(--color-amber-50);
+  --state-warning-text: var(--color-amber-700);
+
+  --state-error: var(--color-red-400);
+  --state-error-soft: var(--color-red-50);
+  --state-error-text: var(--color-red-600);
+
+  --state-info: var(--color-blue-400);
+  --state-info-soft: var(--color-blue-50);
+  --state-info-text: var(--color-blue-600);
+
+  --state-orange: var(--color-orange-400);
+  --state-orange-soft: var(--color-orange-50);
+
+  --state-purple: var(--color-purple-400);
+  --state-purple-soft: var(--color-purple-50);
+
+  --state-teal: var(--color-teal-400);
+  --state-teal-soft: var(--color-teal-50);
+
+  /* ---------------------------------------------------------------------------
+     2.7 COMPONENT TOKENS
+     Use these as the final styling layer for reusable UI elements.
+     --------------------------------------------------------------------------- */
+
+  --card-bg: var(--surface-base);
+  --card-radius: var(--radius-m);
+  --card-pad: var(--space-fluid-l);
+
+  --field-bg: var(--surface-base);
+  --field-text: var(--text-primary);
+  --field-border: var(--border-subtle);
+  --field-border-hover: var(--border-strong);
+  --field-border-focus: var(--brand-primary);
+  --field-radius: var(--radius-s);
+  --field-pad-y: 0.75rem;
+  --field-pad-x: 0.875rem;
+  --field-placeholder: var(--text-muted);
+
+/* ─── Button Color Tokens ─── */
+  --btn-primary-bg: var(--brand-accent);
+  --btn-primary-text: var(--text-inverse);
+  --btn-primary-bg-hover: var(--brand-accent-hover);
+  --btn-primary-bg-active: var(--brand-accent-active);
+
+  --btn-navy-bg: var(--brand-primary);
+  --btn-navy-text: var(--text-inverse);
+  --btn-navy-bg-hover: var(--brand-primary-hover);
+  --btn-navy-bg-active: var(--brand-primary-active);
+
+  --btn-secondary-bg: var(--surface-base);
+  --btn-secondary-text: var(--text-primary);
+  --btn-secondary-border: var(--border-subtle);
+  --btn-secondary-bg-hover: var(--surface-subtle);
+  --btn-secondary-bg-active: var(--surface-hover);
+
+  --btn-ghost-bg: transparent;
+  --btn-ghost-text: var(--text-secondary);
+  --btn-ghost-bg-hover: var(--surface-subtle);
+  --btn-ghost-bg-active: var(--surface-hover);
+
+  /* ─── Custom Button Height Tokens (only where content doesn't determine height) ─── */
+  --pin-btn-height: 4rem;
+  --icon-btn-size: var(--space-3xl);
+  --icon-btn-size-s: var(--icon-size-sm);
+
+  --badge-radius: var(--radius-xs);
+  --badge-pad-y: 0.1875rem;
+  --badge-pad-x: 0.5rem;
+  --badge-font-size: var(--text-xs);
+  --badge-font-weight: var(--fw-semibold);
+
+  --nav-item-radius: 0;
+  --nav-item-pad-y: 0.625rem;
+  --nav-item-pad-x: 0.625rem;
+  --nav-item-text: var(--text-primary);
+  --nav-item-hover-bg: var(--surface-hover);
+  --nav-item-active-bg: var(--brand-primary);
+  --nav-item-active-text: var(--text-inverse);
+
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --sheet-bg: var(--surface-base);
+  --sheet-radius: var(--radius-l);
+
+  /* ---------------------------------------------------------------------------
+     2.8 DATA / STATUS TOKENS
+     Shared across all apps and suitable for runtime inline values.
+     --------------------------------------------------------------------------- */
+
+  --status-draft: var(--text-muted);
+  --status-draft-bg: var(--surface-raised);
+
+  --status-queued: var(--color-purple-300);
+  --status-queued-bg: var(--state-purple-soft);
+
+  --status-running: var(--state-info);
+  --status-running-bg: var(--state-info-soft);
+
+  --status-submitted: var(--state-warning);
+  --status-submitted-bg: var(--state-warning-soft);
+
+  --status-fulfillment: var(--color-blue-600);
+  --status-fulfillment-bg: var(--state-info-soft);
+
+  --status-published: var(--color-blue-600);
+  --status-published-bg: var(--state-info-soft);
+
+  --status-shipment: var(--brand-primary);
+  --status-shipment-bg: #d4dae5;
+
+  --status-back-ordered: var(--state-warning-text);
+  --status-back-ordered-bg: var(--state-warning-soft);
+
+  --status-complete: var(--state-success-text);
+  --status-complete-bg: var(--state-success-soft);
+
+  --status-fulfilled: var(--state-success-text);
+  --status-fulfilled-bg: var(--state-success-soft);
+
+  --status-cancelled: #8b6b6b;
+  --status-cancelled-bg: #f5eaea;
+
+  --status-approved: var(--state-success-text);
+  --status-approved-bg: var(--state-success-soft);
+
+  --status-rejected: var(--state-error-text);
+  --status-rejected-bg: var(--state-error-soft);
+
+  --status-failed: var(--state-error-text);
+  --status-failed-bg: var(--state-error-soft);
+
+  --status-pending-review: var(--state-info);
+  --status-pending-review-bg: var(--state-info-soft);
+
+  --status-under-review: var(--color-orange-500);
+  --status-under-review-bg: var(--state-orange-soft);
+
+  --stage-site-survey: var(--state-teal);
+  --stage-site-survey-bg: var(--state-teal-soft);
+
+  --stage-scheduled: var(--state-purple);
+  --stage-scheduled-bg: var(--state-purple-soft);
+
+  --stage-in-progress: var(--color-orange-500);
+  --stage-in-progress-bg: var(--state-orange-soft);
+
+  --stage-inspection: var(--state-teal);
+  --stage-inspection-bg: var(--state-teal-soft);
+
+  --stage-customer-signoff: var(--state-teal);
+  --stage-customer-signoff-bg: var(--state-teal-soft);
+
+  --stage-postponed: var(--state-warning-text);
+  --stage-postponed-bg: var(--state-warning-soft);
+
+  --role-admin: var(--state-error-text);
+  --role-admin-bg: var(--state-error-soft);
+
+  --role-manager: var(--state-info);
+  --role-manager-bg: var(--state-info-soft);
+
+  --role-warehouse-manager: var(--color-purple-500);
+  --role-warehouse-manager-bg: var(--state-purple-soft);
+
+  --role-user: var(--state-success-text);
+  --role-user-bg: var(--state-success-soft);
+
+  /* ---------------------------------------------------------------------------
+     2.9 LEGACY ALIAS LAYER — TEMPORARY
+     DO NOT USE THESE IN NEW CODE.
+     They keep existing components stable during migration.
+     --------------------------------------------------------------------------- */
+
+  --black: var(--color-black);
+  --white: var(--color-white);
+
+  --navy-base: var(--color-navy-400);
+  --navy-shade-20: var(--color-navy-500);
+  --navy-shade-40: var(--color-navy-600);
+  --navy-shade-60: var(--color-navy-700);
+  --navy-shade-80: var(--color-navy-800);
+  --navy-tint-20: var(--color-navy-300);
+  --navy-tint-40: var(--color-navy-200);
+  --navy-tint-60: var(--color-navy-100);
+  --navy-tint-80: var(--color-navy-50);
+
+  --red-base: var(--color-red-400);
+  --red-shade-20: var(--color-red-500);
+  --red-shade-40: var(--color-red-600);
+  --red-shade-60: var(--color-red-700);
+  --red-shade-80: var(--color-red-800);
+  --red-tint-20: var(--color-red-300);
+  --red-tint-40: var(--color-red-200);
+  --red-tint-60: var(--color-red-100);
+  --red-tint-80: var(--color-red-50);
+
+  --blue-base: var(--color-blue-400);
+  --blue-shade-20: var(--color-blue-500);
+  --blue-shade-40: var(--color-blue-600);
+  --blue-shade-60: var(--color-blue-700);
+  --blue-shade-80: var(--color-blue-800);
+  --blue-tint-20: var(--color-blue-300);
+  --blue-tint-40: var(--color-blue-200);
+  --blue-tint-60: var(--color-blue-100);
+  --blue-tint-80: var(--color-blue-50);
+
+  --success-base: var(--color-green-400);
+  --success-shade-20: var(--color-green-500);
+  --success-shade-40: var(--color-green-600);
+  --success-shade-60: var(--color-green-700);
+  --success-shade-80: var(--color-green-800);
+  --success-tint-20: var(--color-green-300);
+  --success-tint-40: var(--color-green-200);
+  --success-tint-60: var(--color-green-100);
+  --success-tint-80: var(--color-green-50);
+
+  --warning-base: var(--color-amber-400);
+  --warning-shade-20: var(--color-amber-500);
+  --warning-shade-40: var(--color-amber-600);
+  --warning-shade-60: var(--color-amber-700);
+  --warning-shade-80: var(--color-amber-800);
+  --warning-tint-20: var(--color-amber-300);
+  --warning-tint-40: var(--color-amber-200);
+  --warning-tint-60: var(--color-amber-100);
+  --warning-tint-80: var(--color-amber-50);
+
+  --error-base: var(--state-error);
+  --error-shade-20: var(--color-red-500);
+  --error-shade-40: var(--state-error-text);
+  --error-shade-60: var(--color-red-700);
+  --error-shade-80: var(--color-red-800);
+  --error-tint-20: var(--color-red-300);
+  --error-tint-40: var(--color-red-200);
+  --error-tint-60: var(--color-red-100);
+  --error-tint-80: var(--color-red-50);
+
+  --orange-base: var(--color-orange-400);
+  --orange-shade-20: var(--color-orange-500);
+  --orange-shade-40: var(--color-orange-600);
+  --orange-shade-60: var(--color-orange-700);
+  --orange-shade-80: var(--color-orange-800);
+  --orange-tint-20: var(--color-orange-300);
+  --orange-tint-40: var(--color-orange-200);
+  --orange-tint-60: var(--color-orange-100);
+  --orange-tint-80: var(--color-orange-50);
+
+  --purple-base: var(--color-purple-400);
+  --purple-shade-20: var(--color-purple-500);
+  --purple-shade-40: var(--color-purple-600);
+  --purple-shade-60: var(--color-purple-700);
+  --purple-shade-80: var(--color-purple-800);
+  --purple-tint-20: var(--color-purple-300);
+  --purple-tint-40: var(--color-purple-200);
+  --purple-tint-60: var(--color-purple-100);
+  --purple-tint-80: var(--color-purple-50);
+
+  --grey-base: var(--color-neutral-600);
+  --grey-shade-20: var(--color-neutral-700);
+  --grey-shade-40: var(--color-neutral-800);
+  --grey-shade-60: var(--color-neutral-900);
+  --grey-shade-80: var(--color-neutral-950);
+  --grey-tint-20: var(--color-neutral-500);
+  --grey-tint-40: var(--color-neutral-400);
+  --grey-tint-60: var(--color-neutral-300);
+  --grey-tint-80: var(--color-neutral-200);
+
+  --navy: var(--brand-primary);
+  --navy-dark: var(--brand-primary-hover);
+  --navy-mid: var(--color-navy-300);
+  --navy-soft: var(--color-navy-50);
+  --red: var(--brand-accent);
+  --red-dark: var(--brand-accent-hover);
+  --red-soft: var(--state-error-soft);
+  --blue: var(--state-info);
+  --blue-dark: var(--state-info-text);
+  --blue-soft: var(--state-info-soft);
+  --success: var(--state-success);
+  --success-dark: var(--state-success-text);
+  --success-text: var(--state-success-text);
+  --success-soft: var(--state-success-soft);
+  --success-mid: var(--color-green-200);
+  --warning: var(--state-warning);
+  --warning-dark: var(--state-warning-text);
+  --warning-text: var(--state-warning-text);
+  --warning-soft: var(--state-warning-soft);
+  --warning-border: var(--color-amber-200);
+  --error: var(--state-error);
+  --error-alt: var(--color-red-500);
+  --error-dark: var(--state-error-text);
+  --error-soft: var(--state-error-soft);
+  --orange: var(--state-orange);
+  --orange-soft: var(--state-orange-soft);
+  --purple: var(--state-purple);
+  --purple-soft: var(--state-purple-soft);
+  --purple-border: var(--color-purple-100);
+  --teal: var(--state-teal);
+  --teal-soft: var(--state-teal-soft);
+
+  --bg: var(--surface-page);
+  --hover: var(--surface-hover);
+  --border: transparent;
+  --border-l: var(--border-subtle);
+  --text-3: var(--text-muted);
+  --text-4: var(--text-disabled);
+
+  --font: var(--font-body);
+  --mono: var(--font-mono);
+
+  --h1: var(--text-3xl);
+  --h2: var(--text-2xl);
+  --h3: var(--text-xl);
+  --h4: var(--text-lg);
+  --h5: var(--text-md);
+  --h6: var(--text-base);
+
+  --lh-2xs: 1.6;
+  --lh-xs: 1.5;
+  --lh-sm: 1.5;
+  --lh-md: 1.4;
+  --lh-lg: 1.3;
+  --lh-xl: 1.2;
+  --lh-xxl: 1.15;
+
+  --ls-2xs: 0.06em;
+  --ls-xs: 0.02em;
+  --ls-sm: 0em;
+  --ls-md: 0em;
+  --ls-lg: -0.01em;
+  --ls-xl: -0.02em;
+  --ls-xxl: -0.03em;
+
+  --fw-normal: var(--fw-regular);
+  --text-xxl: var(--text-2xl);
+
+  --gap-xs: var(--space-2xs);
+  --gap-s: var(--space-xs);
+  --gap-m: var(--space-m);
+  --gap-l: var(--space-l);
+  --gap-xl: var(--space-xl);
+  --gap-xxl: var(--space-3xl);
+
+  --pad-xs: var(--space-2xs);
+  --pad-s: var(--space-xs);
+  --pad-m: var(--space-m);
+  --pad-l: var(--space-l);
+  --pad-xl: var(--space-xl);
+  --pad-xxl: var(--space-3xl);
+
+  --mar-xs: var(--space-2xs);
+  --mar-s: var(--space-xs);
+  --mar-m: var(--space-m);
+  --mar-l: var(--space-l);
+  --mar-xl: var(--space-xl);
+  --mar-xxl: var(--space-3xl);
+
+  --r-xs: var(--radius-xs);
+  --r-s: var(--radius-s);
+  --r-m: var(--radius-m);
+  --r-l: var(--radius-l);
+  --r-xl: var(--radius-xl);
+  --r-xxl: var(--radius-round);
+
+  --bw-xs: 1px;
+  --bw-s: 1.5px;
+  --bw-m: 2px;
+  --bw-l: 3px;
+  --bw-xl: 4px;
+  --bw-xxl: 6px;
+
+  --icon-xs: 0.875rem;
+  --icon-s: 1rem;
+  --icon-m: 1.25rem;
+  --icon-l: 1.5rem;
+  --icon-xl: 2rem;
+  --icon-xxl: 3rem;
+
+  --sidebar-wc: var(--sidebar-w-collapsed);
+
+  --ease-fast: var(--dur-fast) var(--ease-standard);
+  --ease-base: var(--dur-base) var(--ease-standard);
+  --ease-slow: var(--dur-slow) var(--ease-standard);
+  --ease-sidebar: 220ms var(--ease-emphasized);
+
+  --z-raised: 1;
+  --z-sticky: 10;
+  --z-overlay: 50;
+  --z-modal: 100;
+  --z-toast: 200;
+
+  /* Additional legacy aliases needed by app-specific CSS */
+  --error-darker: var(--color-red-700);
+  --live: var(--state-success);
+  --space-xxl: var(--space-3xl);
+}
+
+
+/* =============================================================================
+   15. DEPRECATION NOTES
+   =============================================================================
+
+   Deprecated token families kept alive temporarily:
+   - --bg / --black / --white
+   - --gap-* / --pad-* / --mar-*
+   - --r-* legacy names
+   - palette aliases like --navy, --red, --blue
+   - old button family token names
+
+   RULE
+   - Existing components may still consume legacy aliases during transition
+   - New components must use semantic/component tokens only
+   - Remove alias layer only after all three apps are migrated
+
+   ============================================================================= */
+/* ═══════════════════════════════════════════════════════════
+   END OF SHARED CSS — App-specific styles go in app.css
+   ═══════════════════════════════════════════════════════════ */
